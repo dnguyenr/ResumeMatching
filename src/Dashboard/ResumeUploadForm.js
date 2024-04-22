@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { TextField, Button, Typography, Paper, box } from "@material-ui/core";
+import { TextField, Button, Typography, Paper, Box } from "@mui/material";
 
 function ResumeUploadForm() {
   const [resumeFile, setResumeFile] = useState(null);
-  const [name, setName] = useState("");
-  const [experience, setExperience] = useState("");
-  const [prefferedSectors, setPrefferedSectors] = useState([]);
+  const [name, setName] = useState('');
+  const [experience, setExperience] = useState('');
+  const [prefferedSectors, setPrefferedSectors] = useState('');
 
   const handleFileChange = (event) => {
     setResumeFile(event.target.files[0]);
@@ -20,41 +20,69 @@ function ResumeUploadForm() {
 
     console.log("Form data submmited: ", formData);
   };
+
   return (
+    <Box sx={{ padding: 2}}>
+
+    
+      <Paper elevation={3} sx={{ padding: 3}}>
+      
+        <Typography variant = "h6" gutterBottom>
+          Upload Your Resume
+        </Typography> {/* Added closing curly brace here */}
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>Name:</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-          required
+      <TextField
+        label="Name"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        value={name}
+        onChange={(event) => setName(event.target.value)}
+        required
         />
-      </div>
-      <div>
-        <label>Experience:</label>
-        <input
-          type="text"
-          value={experience}
-          onChange={(event) => setExperience(event.target.value)}
-          required
+        <TextField
+        label= "Experience Level"
+        ariant="outlined"
+        fullWidth
+        margin="normal"
+        value={experience}
+        onChange={(event) => setExperience(event.target.value)}
+        required
         />
-      </div>
-      <div>
-        <label>Preffered Sectors:</label>
-        <input
-          type="text"
-          value={prefferedSectors}
-          onChange={(event) => setPrefferedSectors(event.target.value)}
-          required
+        <TextField
+        label= "Preffered Job Sectors"
+        ariant="outlined"
+        fullWidth
+        margin="normal"
+        value={prefferedSectors}
+        onChange={(event) => setPrefferedSectors(event.target.value)}
+        required
         />
-      </div>
-      <div>
-        <label>Resume:</label>
-        <input type="file" onChange={handleFileChange} required />
-      </div>
-      <button type="submit">Submit</button>
+    <Button 
+    variant="contained"
+    component="label"
+    fullWidth
+    sx={{ marginTop: 2}}>
+      Upload file
+      <input
+      type = "file"
+      hidden
+      onChange={handleFileChange}
+      accept=".pdf,.doc,.docx"
+      required
+      />
+    </Button>
+  <Button
+  type="submit"
+  variant="contained"
+  color="primary"
+  fullWidth
+  sx={{ mt: 2, mb: 2}}>
+    Submit
+    </Button>
     </form>
+    </Paper>
+    </Box>
   );
 }
 export default ResumeUploadForm;
